@@ -10,6 +10,8 @@ include "./inc/footer.php";
 <ul>
     <?php
     //var_dump(Auth::attempt(['user_name' => 'Hieu', 'password' => '123']));
+    //Auth::attempt(['user_name' => 'Hieu', 'password' => '123']);
+    var_dump(Auth::check());
 
     if (Auth::check()) {
         $user = Auth::user();

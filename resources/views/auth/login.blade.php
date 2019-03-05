@@ -26,6 +26,7 @@
 <!--===============================================================================================-->
 </head>
 <body>
+<?php echo var_dump(Auth::check()); ?>
 	
 	<div class="limiter">
 		<div class="container-login100">
@@ -33,7 +34,7 @@
 				<form method="post" class="login100-form validate-form flex-sb flex-w">
 					<span class="login100-form-title p-b-51">
 						Login
-					</span>
+					</span>					
 
 					<input type="hidden" name="_token" value="<?php echo csrf_token() ?>">
 
