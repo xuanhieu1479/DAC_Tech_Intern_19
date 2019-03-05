@@ -17,9 +17,9 @@ class CreateProductTable extends Migration
             $table->bigIncrements('product_id');
             $table->string('product_name')->nullable();
             $table->bigInteger('category_id')->unsigned();
-            $table->bigInteger('owner_id')->unsigned();
+            $table->string('owner');
             $table->foreign('category_id')->references('category_id')->on('category');
-            $table->foreign('owner_id')->references('user_id')->on('users');
+            $table->foreign('owner')->references('user_name')->on('users');
             $table->timestamps();
         });
     }

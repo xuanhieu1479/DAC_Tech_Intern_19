@@ -14,11 +14,11 @@ class CreateUgTable extends Migration
     public function up()
     {
         Schema::create('ug', function (Blueprint $table) {
-            $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('group_id')->unsigned();
-            $table->primary(['user_id', 'group_id']);
-            $table->foreign('user_id')->references('user_id')->on('users');
-            $table->foreign('group_id')->references('group_id')->on('groups');
+            $table->string('user_name');
+            $table->string('group_name');
+            $table->primary(['user_name', 'group_name']);
+            $table->foreign('user_name')->references('user_name')->on('users');
+            $table->foreign('group_name')->references('group_name')->on('groups');
             $table->timestamps();
         });
     }

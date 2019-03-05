@@ -13,4 +13,6 @@
 
 Route::view('/', 'home');
 
-Route::view('/login', 'login');
+Route::get('/login', 'loginController@showLogin');
+
+Route::post('/login', 'loginController@doLogin');

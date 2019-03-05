@@ -14,8 +14,7 @@ class CreateGroupsTable extends Migration
     public function up()
     {
         Schema::create('groups', function (Blueprint $table) {
-            $table->bigIncrements('group_id');
-            $table->string('group_name')->nullable();
+            $table->string('group_name')->primary();
             $table->integer('leader_id');
             $table->timestamps();
         });
