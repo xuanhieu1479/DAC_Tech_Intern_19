@@ -11,8 +11,12 @@
 |
 */
 
+// Route::view('/', 'home');
+
 Route::view('/', 'home');
 
 Route::get('/login', 'loginController@showLogin');
 
 Route::post('/login', 'loginController@doLogin');
+
+Auth::routes();

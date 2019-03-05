@@ -1,4 +1,6 @@
 <?php
+
+use Illuminate\Support\Facades\Auth;
 include "./inc/header.html";
 include "./inc/footer.php";
 ?>
@@ -7,8 +9,11 @@ include "./inc/footer.php";
 <html lang="en">
 <ul>
     <?php
-    if (isset($user_name)) {
-        echo "<li>Username : " . $user_name . "</li>";
+    //var_dump(Auth::attempt(['user_name' => 'Hieu', 'password' => '123']));
+
+    if (Auth::check()) {
+        $user = Auth::user();
+        echo '<h1>' . $user->user_name . '</h1>';
     }
 
     ?>
