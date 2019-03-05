@@ -3,6 +3,7 @@
 /public/storage
 /storage/*.key
 /vendor
+.vagrant/machines
 .env
 .phpunit.result.cache
 Homestead.json
