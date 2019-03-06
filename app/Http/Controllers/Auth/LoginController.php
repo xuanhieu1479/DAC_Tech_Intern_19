@@ -41,8 +41,7 @@ class LoginController extends Controller
         return 'user_name';
     }
 
-    public function authenticated()
-    {
-        return redirect('/');
+    public function sendFailedLoginResponse() {
+        return redirect('/login')->with('status', 'Username or password was wrong');
     }
 }

@@ -26,7 +26,6 @@
 <!--===============================================================================================-->
 </head>
 <body>
-<?php echo var_dump(Auth::check()); ?>
 	
 	<div class="limiter">
 		<div class="container-login100">
@@ -34,10 +33,17 @@
 				<form method="post" class="login100-form validate-form flex-sb flex-w">
 					<span class="login100-form-title p-b-51">
 						Login
-					</span>					
+					</span>
+
+					<p style="color: red; margin: auto; margin-bottom: 20px; margin-top: -45px;">
+						<?php
+						if (Session::has('status')) {
+							echo Session::get('status');
+						}
+						?>
+					</p>
 
 					<input type="hidden" name="_token" value="<?php echo csrf_token() ?>">
-
 					
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
 						<input class="input100" type="text" name="user_name" placeholder="Username">

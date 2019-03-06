@@ -19,4 +19,8 @@ Route::get('/login', 'loginController@showLogin');
 
 Route::post('/login', 'loginController@doLogin');
 
+Route::get('/logout', 'logoutController@doLogout');
+
+Route::view('/profile', 'profile');
+
 Auth::routes();
