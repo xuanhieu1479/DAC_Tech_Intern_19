@@ -16,6 +16,7 @@ class CreateUgTable extends Migration
         Schema::create('ug', function (Blueprint $table) {
             $table->string('user_name');
             $table->string('group_name');
+            $table->tinyInteger('isLeader');
             $table->primary(['user_name', 'group_name']);
             $table->foreign('user_name')->references('user_name')->on('users');
             $table->foreign('group_name')->references('group_name')->on('groups');

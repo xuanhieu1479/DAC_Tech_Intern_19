@@ -15,19 +15,19 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             'user_name' => 'Hieu',
             'password' => Hash::make('123'),
-            'role_id' => 0,
+            'isAdmin' => 1,
         ]);
 
         DB::table('users')->insert([
             'user_name' => 'Khanh',
             'password' => Hash::make('456'),
-            'role_id' => 1,
+            'isAdmin' => 0,
         ]);
 
         DB::table('users')->insert([
             'user_name' => 'Tri',
             'password' => Hash::make('789'),
-            'role_id' => 2,
+            'isAdmin' => 0,
         ]);
     }
 }

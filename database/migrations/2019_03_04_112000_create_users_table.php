@@ -16,8 +16,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->string('user_name')->primary();
             $table->string('password');
-            $table->integer('role_id');
-            $table->foreign('role_id')->references('role_id')->on('roles');
+            $table->tinyInteger('isAdmin');
             $table->timestamps();
         });
     }
