@@ -1,0 +1,38 @@
+.tabs-divided {
+    position: relative;   
+    min-height: 755px;
+    clear: both;
+    margin: 50px 0;
+  }
+  .tab-divided {
+    float: left;
+  }
+  .tab-divided-label {
+    background: #eee;
+    padding: 15px;
+    border: 1px solid #ccc;
+    margin-left: 60px;
+    position: relative;
+    left: 830px;
+  }
+  .tab-divided [type=radio] {
+    display: none;   
+  }
+  .content-tab-divided {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background: white;
+    right: 0;
+    bottom: 0;
+    padding: 10px;
+    border: 1px solid #ccc; 
+  }
+  [type=radio]:checked ~ label {
+    background: white;
+    border-bottom: 1px solid white;
+    z-index: 2;
+  }
+  [type=radio]:checked ~ label ~ .content-tab-divided {
+    z-index: 1;
+  }

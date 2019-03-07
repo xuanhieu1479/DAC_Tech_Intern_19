@@ -23,4 +23,8 @@ Route::get('/logout', 'logoutController@doLogout');
 
 Route::view('/profile', 'profile');
 
+Route::post('/add_product', 'addProductController@addProduct');
+
+Route::post('/create_group', 'createGroupController@createGroup');
+
 Auth::routes();
