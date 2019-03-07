@@ -27,4 +27,16 @@ Route::post('/add_product', 'addProductController@addProduct');
 
 Route::post('/create_group', 'createGroupController@createGroup');
 
+Route::view('/group', 'group');
+
+Route::get('/group?name={group_name}', function() {
+    return view('group');
+});
+
+Route::post('/update_leader', 'updateGroupController@updateLeader');
+
+Route::post('/add_member', 'updateGroupController@addMember');
+
+Route::post('/remove_member', 'updateGroupController@removeMember');
+
 Auth::routes();

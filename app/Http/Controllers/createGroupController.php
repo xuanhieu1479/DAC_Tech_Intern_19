@@ -25,9 +25,9 @@ class createGroupController extends Controller
                 'isLeader' => 1,
             ]);
         } catch (\Exception $e) {
-            return redirect('/profile')->with(['status', 'failure'], ['from', 'group']);
+            return redirect('/profile')->with('status', 'failure')->with('from', 'group');
         }
 
-        return redirect('/profile')->with(['status', 'failure'], ['from', 'group']);
+        return redirect('/profile')->with('status', 'success')->with('from', 'group');
     }
 }

@@ -6,17 +6,17 @@ include "./inc/footer.php";
 ?>
 
 <link rel="stylesheet" href="/css/tab.css">
-<!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
 <div class="tabs-divided">
 
     <div class="tab-divided">
         <input type="radio" id="tab-1" name="tab-group-1"
             <?php
-                if (Session::has('from')) {
-                    if (Session::get('from') != 'group') echo 'checked';
+                if (!Session::has('from')) {
+                    echo ' checked';                     
+                }
+                else if (Session::get('from') != 'group') {
+                    echo ' checked';
                 }
             ?>
         >
@@ -85,8 +85,20 @@ include "./inc/footer.php";
         </div>
     </div>
 
-    <div class="tab-divided" <?php if (Auth::user()->isAdmin != 1) echo 'hidden'; ?>>
-        <input type="radio" id="tab-2" name="tab-group-1">
+    <div class="tab-divided" <?php 
+            if (!Auth::check()) {
+                echo 'hidden';                
+            }
+            else if (Auth::user()->isAdmin != 1) {
+                echo 'hidden';
+            } ?>>
+        <input type="radio" id="tab-2" name="tab-group-1"
+        <?php
+            if (Session::has('from')) {
+                if (Session::get('from') == 'group') echo ' checked';                                    
+            }
+        ?>
+        >
         <label for="tab-2" class="tab-divided-label">Create Group</label>
 
         <div class="content-tab-divided">
@@ -104,7 +116,7 @@ include "./inc/footer.php";
                                 break;
                             case 'failure':
                                 echo '<div class="alert alert-danger" role="alert" style="text-align: center; width: 40%; margin-left: auto; margin-right: auto;">';
-                                echo 'Something wrong. Please come back later';
+                                echo 'Group is already existed. Please choose another name.';
                                 echo '</div>';
                                 break;
                         }
@@ -135,7 +147,7 @@ include "./inc/footer.php";
                                 ?>
                             </select>
                         </div>
-                    </div>
+                    </div>                    
 
                     <!-- Text input-->
                     <div class="form-group" style="margin-top: 30px">
