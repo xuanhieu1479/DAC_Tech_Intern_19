@@ -5,12 +5,35 @@ include "./inc/footer.php";
 
 use Illuminate\Support\Facades\Input;
 
-if (!Auth::check()) header('Location: /login');
-else if (Auth::user()->isAdmin != 1) header('Location: /');
-
 $product_id = Input::get('product_id');
 $product_name = Input::get('product_name');
 $category_id = Input::get('category_id');
+$owner_name = Input::get('owner_name');
+if (!isset($product_id) || !isset($product_name) || !isset($category_id) || !isset($owner_name)) {
+    header('Location: /');
+}
+if (DB::table('product')
+    ->where('product_id', $product_id)
+    ->where('product_name', $product_name)
+    ->where('category_id', $category_id)
+    ->where('owner_name', $owner_name)
+    ->get()->isEmpty()) {
+        header('Location: /');
+    }
+
+if (!Auth::check()) header('Location: /login');
+else if (
+    Auth::user()->user_name != $owner_name
+    && Auth::user()->isAdmin != 1
+    //Copy straigth from home page.
+    && (DB::table('ug')->where('user_name', Auth::user()->user_name)->where('isLeader', 1)->whereIn(
+        'group_name',
+        DB::table('ug')->where('user_name', $owner_name)->pluck('group_name')
+    )->get()->isEmpty())
+) {
+    header('Location: /');
+}
+
 ?>
 
 <form method="post" action="/product/edit" class="form-horizontal" style="margin-left: 120px; margin-top: 50px">
@@ -47,7 +70,7 @@ $category_id = Input::get('category_id');
             <div class="col-md-4">
                 <select id="category_id" name="category_id" class="form-control">
                     <?php
-                    $categories = DB::table('category')->get();                    
+                    $categories = DB::table('category')->get();
                     foreach ($categories as $category) {
                         $isSelected = ' ';
                         if ($category->category_id == $category_id) $isSelected .= 'selected';

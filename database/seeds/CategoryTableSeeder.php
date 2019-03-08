@@ -25,5 +25,26 @@ class CategoryTableSeeder extends Seeder
             'category_id' => 'hq',
             'category_name' => 'high quality',
         ]);
+
+        DB::table('category')->insert([
+            'category_id' => 'fr',
+            'category_name' => 'first rate',
+        ]);
+
+        DB::table('category')->insert([
+            'category_id' => 'ss',
+            'category_name' => 'so so',
+        ]);
+
+        DB::table('category')->insert([
+            'category_id' => 'f',
+            'category_name' => 'fake',
+        ]);
+
+        DB::table('category')->insert([
+            'category_id' => 'sc',
+            'category_name' => 'second hand',
+        ]);
+        
     }
 }
