@@ -39,4 +39,10 @@ Route::post('/add_member', 'updateGroupController@addMember');
 
 Route::post('/remove_member', 'updateGroupController@removeMember');
 
+Route::get('/product/edit', 'editProductController@toEditProduct');
+
+Route::post('/product/edit', 'editProductController@doEditProduct');
+
+Route::post('/product/delete', 'deleteProductController@deleteProduct');
+
 Auth::routes();

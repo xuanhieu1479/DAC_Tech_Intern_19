@@ -3,8 +3,6 @@
 include "./inc/header.php";
 include "./inc/footer.php";
 
-use DB;
-use Auth;
 use Illuminate\Support\Facades\Input;
 
 if (DB::table('groups')->get()->isEmpty()) {

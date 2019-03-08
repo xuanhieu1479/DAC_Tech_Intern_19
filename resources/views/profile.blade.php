@@ -3,6 +3,8 @@
 include "./inc/header.php";
 include "./inc/footer.php";
 
+if (!Auth::check()) header('Location: /login');
+
 ?>
 
 <link rel="stylesheet" href="/css/tab.css">
