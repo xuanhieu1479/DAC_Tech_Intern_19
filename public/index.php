@@ -49,15 +49,15 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 |
 */
 
-$kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
+// $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 
-$response = $kernel->handle(
-    $request = Illuminate\Http\Request::capture()
-);
+// $response = $kernel->handle(
+//     $request = Illuminate\Http\Request::capture()
+// );
 
-$response->send();
+// $response->send();
 
-$kernel->terminate($request, $response);
+// $kernel->terminate($request, $response);
 
-// include "./inc/header.html";
-// include "./inc/footer.php";
+include "./inc/header.php";
+include "./inc/footer.php";
