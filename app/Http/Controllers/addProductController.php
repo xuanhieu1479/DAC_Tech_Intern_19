@@ -20,8 +20,8 @@ class addProductController extends Controller
                 'owner_name' => $owner_name,
             ]);
         } catch (\Exception $e) {
-            return redirect('/profile')->with('status', 'failure');
+            return redirect('/profile')->with('status', 'failure')->with('from', 'product');
         }
-        return redirect('/profile')->with('status', 'success');
+        return redirect('/profile')->with('status', 'success')->with('from', 'product');
     }
 }

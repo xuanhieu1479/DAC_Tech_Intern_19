@@ -7,10 +7,10 @@
     <?php
         $firstGroup = DB::table('groups')->first();
         if ($firstGroup) {
-            echo '/group?name=' . $firstGroup->group_name;
+            echo '"/group?name=' . $firstGroup->group_name . '"';
         }
         else {
-            echo '/group';
+            echo '"/group"';
         }
     ?>
     >GROUPS</a>

@@ -37,7 +37,7 @@ else if (
 ?>
 
 <form method="post" action="/product/edit" class="form-horizontal" style="margin-left: 120px; margin-top: 50px">
-    <input type="hidden" name="_token" value="<?php echo csrf_token() ?>">
+    <input type="hidden" name="_token" value=<?php echo csrf_token() ?>>
     <fieldset>
 
         <?php
@@ -54,13 +54,13 @@ else if (
 
         <!-- Form Name -->
         <legend style="margin-bottom: 35px; margin-left: -45px">EDIT PRODUCT</legend>
-        <input type="hidden" name="product_id" value="<?php echo $product_id ?>">
+        <input type="hidden" name="product_id" value=<?php echo "'".$product_id."'" ?>>
 
         <!-- Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="product_name">PRODUCT NAME</label>
             <div class="col-md-4">
-                <input id="product_name" name="product_name" value=<?php echo $product_name ?> class="form-control input-md" required="" type="text">
+                <input id="product_name" name="product_name" value=<?php echo "'".$product_name."'" ?> class="form-control input-md" required="" type="text">
             </div>
         </div>
 

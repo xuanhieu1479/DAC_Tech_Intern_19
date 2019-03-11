@@ -43,7 +43,7 @@
 						?>
 					</p>
 
-					<input type="hidden" name="_token" value="<?php echo csrf_token() ?>">
+					<input type="hidden" name="_token" value=<?php echo csrf_token() ?>>
 					
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
 						<input class="input100" type="text" name="user_name" placeholder="Username">

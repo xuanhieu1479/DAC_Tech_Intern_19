@@ -17,8 +17,15 @@ if (!Auth::check()) header('Location: /login');
                 if (!Session::has('from')) {
                     echo ' checked';                     
                 }
-                else if (Session::get('from') != 'group') {
-                    echo ' checked';
+                else {
+                    switch (Session::get('from')) {
+                        case 'product':
+                            echo ' checked';
+                            break;
+                        case 'group':
+                            echo '';
+                            break;
+                    }
                 }
             ?>
         >
@@ -26,7 +33,7 @@ if (!Auth::check()) header('Location: /login');
 
         <div class="content-tab-divided">
             <form method="post" action="/add_product" class="form-horizontal" style="margin-left: 100px">
-                <input type="hidden" name="_token" value="<?php echo csrf_token() ?>">
+                <input type="hidden" name="_token" value=<?php echo csrf_token() ?>>
                 <fieldset>
 
                     <?php
@@ -97,7 +104,14 @@ if (!Auth::check()) header('Location: /login');
         <input type="radio" id="tab-2" name="tab-group-1"
         <?php
             if (Session::has('from')) {
-                if (Session::get('from') == 'group') echo ' checked';                                    
+                switch (Session::get('from')) {
+                    case 'product':
+                        echo '';
+                        break;
+                    case 'group':
+                        echo ' checked';
+                        break;
+                }                   
             }
         ?>
         >
@@ -105,7 +119,7 @@ if (!Auth::check()) header('Location: /login');
 
         <div class="content-tab-divided">
             <form method="post" action="/create_group" class="form-horizontal" style="margin-left: 100px">
-                <input type="hidden" name="_token" value="<?php echo csrf_token() ?>">
+                <input type="hidden" name="_token" value=<?php echo csrf_token() ?>>
                 <fieldset>
 
                     <?php

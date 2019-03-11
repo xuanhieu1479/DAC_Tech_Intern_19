@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Input;
 
 if (DB::table('groups')->get()->isEmpty()) {
     echo '<div class="alert alert-danger" role="alert" style="text-align: center; width: 50%; margin-left: auto; margin-right: auto; margin-top: 50px">';
-    echo 'Opps! There are no groups to display. Go <a href="/profile" class="alert-link">add</a> some and be sure you are the admin before doing that.';
+    echo 'Opps! There are no groups to display. Go <a href="/create_group" class="alert-link">add</a> some and be sure you are the admin before doing that.';
     echo '</div>';
     return;
 }
@@ -37,17 +37,17 @@ if ($currentLeader) $currentLeader = $currentLeader->leader_name;
         </div>
         <div class="col">
             <form method="post" action="/update_leader" class="form-horizontal" style="margin-left: 10px; margin-top: 20px">
-                <input type="hidden" name="_token" value="<?php echo csrf_token() ?>">
+                <input type="hidden" name="_token" value=<?php echo csrf_token() ?>>
                 <fieldset>
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="group_name">GROUP NAME</label>
                         <div class="col-md-4">
-                            <input id="group_name" value=<?php echo $currentGroup; ?> class="form-control input-md" type="text" readonly>
+                            <input id="group_name" value=<?php echo "'".$currentGroup."'"; ?> class="form-control input-md" type="text" readonly>
                         </div>
                     </div>
 
-                    <input name="group_name" value=<?php echo $currentGroup; ?> type="text" readonly hidden>
+                    <input name="group_name" value=<?php echo '"'.$currentGroup.'"'; ?> type="text" readonly hidden>
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="leader_name">LEADER</label>
@@ -77,10 +77,10 @@ if ($currentLeader) $currentLeader = $currentLeader->leader_name;
                             <div><button id="singlebutton" class="btn btn-primary"
                             <?php
                             if (!Auth::check()) {
-                                echo 'hidden';                
+                                echo ' hidden';                
                             }
                             else if (Auth::user()->isAdmin != 1) {
-                                echo 'hidden';
+                                echo ' hidden';
                             }?>>Change leader</button></div>
                         </div>
                         <?php
@@ -104,13 +104,13 @@ if ($currentLeader) $currentLeader = $currentLeader->leader_name;
             </form>
 
             <form method="post" action="/add_member" class="form-horizontal" style="margin-left: 10px; margin-top: 20px">
-                <input type="hidden" name="_token" value="<?php echo csrf_token() ?>">
+                <input type="hidden" name="_token" value=<?php echo csrf_token(); ?>>
                 <fieldset>
 
-                    <input name="group_name" value=<?php echo $currentGroup; ?> type="text" readonly hidden>
+                    <input name="group_name" value=<?php echo "'".$currentGroup."'"; ?> type="text" readonly hidden>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="add_member_name">MEMBERS</label>
+                        <label class="col-md-4 control-label" for="add_member_name">NOT MEMBERS</label>
                         <div class="row">
                             <div class="col-md-4" style="margin-left: 15px">
                                 <select id="add_member_name" name="add_member_name" class="form-control" 
@@ -165,22 +165,22 @@ if ($currentLeader) $currentLeader = $currentLeader->leader_name;
             </form>
 
             <form method="post" action="/remove_member" class="form-horizontal" style="margin-left: 10px; margin-top: 20px">
-                <input type="hidden" name="_token" value="<?php echo csrf_token() ?>">
+                <input type="hidden" name="_token" value=<?php echo csrf_token() ?>>
                 <fieldset>
 
-                    <input name="group_name" value=<?php echo $currentGroup; ?> type="text" readonly hidden>
+                    <input name="group_name" value=<?php echo "'".$currentGroup."'"; ?> type="text" readonly hidden>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="del_member_name">MEMBERS</label>
+                        <label class="col-md-4 control-label" for="del_member_name">CURRENT MEMBERS</label>
                         <div class="row">
                             <div class="col-md-4" style="margin-left: 15px">
                                 <select id="del_member_name" name="del_member_name" class="form-control" 
                                 <?php
                                 if (!Auth::check()) {
-                                    echo 'disabled';                
+                                    echo ' disabled';                
                                 }
                                 else if (Auth::user()->isAdmin != 1) {
-                                    echo 'disabled';
+                                    echo ' disabled';
                                 }?>>
                                     <?php
                                     //Only show who is already in group, except leader.
@@ -194,10 +194,10 @@ if ($currentLeader) $currentLeader = $currentLeader->leader_name;
                             <div><button id="singlebutton" class="btn btn-primary" 
                             <?php
                             if (!Auth::check()) {
-                                echo 'hidden';                
+                                echo ' hidden';                
                             }
                             else if (Auth::user()->isAdmin != 1) {
-                                echo 'hidden';
+                                echo ' hidden';
                             }?>>Remove member</button></div>
                         </div>
                         <?php
