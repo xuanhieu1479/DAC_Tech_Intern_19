@@ -43,21 +43,15 @@ class updateGroupController extends Controller
             return redirect('/group?name=' . $group_name)->with('status', 'duplicated member');
         }
 
-        // try {
-        //     DB::table('ug')->insert([
-        //         'user_name' => $add_member_name,
-        //         'group_name' => $group_name,
-        //         'isLeader' => 0,
-        //     ]);
-        // } catch (\Exception $e) {
-        //     return redirect('/group?name=' . $group_name)->with('status', 'MENTOR!');
-        // }
-
-        DB::table('ug')->insert([
-            'user_name' => $add_member_name,
-            'group_name' => $group_name,
-            'isLeader' => 0,
-        ]);
+        try {
+            DB::table('ug')->insert([
+                'user_name' => $add_member_name,
+                'group_name' => $group_name,
+                'isLeader' => 0,
+            ]);
+        } catch (\Exception $e) {
+            return redirect('/group?name=' . $group_name)->with('status', 'MENTOR!');
+        }
 
         return redirect('/group?name=' . $group_name);
     }

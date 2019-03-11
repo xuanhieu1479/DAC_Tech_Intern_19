@@ -36,70 +36,83 @@ if ($currentLeader) $currentLeader = $currentLeader->leader_name;
             </div>
         </div>
         <div class="col">
-            <form method="post" action="/update_leader" class="form-horizontal" style="margin-left: 10px; margin-top: 20px">
+            <form method="post" action="/delete_group" class="form-horizontal" style="margin-left: 10px; margin-top: 20px">
                 <input type="hidden" name="_token" value=<?php echo csrf_token() ?>>
                 <fieldset>
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="group_name">GROUP NAME</label>
-                        <div class="col-md-4">
-                            <input id="group_name" value=<?php echo "'".$currentGroup."'"; ?> class="form-control input-md" type="text" readonly>
-                        </div>
-                    </div>
-
-                    <input name="group_name" value=<?php echo '"'.$currentGroup.'"'; ?> type="text" readonly hidden>
-
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="leader_name">LEADER</label>
                         <div class="row">
                             <div class="col-md-4" style="margin-left: 15px">
-                                <select id="leader_name" name="leader_name" class="form-control" 
-                                <?php
-                                if (!Auth::check()) {
-                                    echo 'disabled';                
-                                }
-                                else if (Auth::user()->isAdmin != 1) {
-                                    echo 'disabled';
-                                }?>>
-                                    <?php
-                                    //Only show who is already in the group.
-                                    $users = DB::table('ug')->where('group_name', $currentGroup)->get();
-                                    foreach ($users as $user) {
-                                        $isSelected = ' ';
-                                        if ($user->user_name == $currentLeader) {
-                                            $isSelected .= 'selected';
-                                        }
-                                        echo '<option value="' . $user->user_name . '"' . $isSelected . '>' . $user->user_name . '</option>';
-                                    }
-                                    ?>
-                                </select>
+                                <input id="group_name" name="group_name" value=<?php echo "'".$currentGroup."'"; ?> class="form-control input-md" type="text" readonly>
                             </div>
-                            <div><button id="singlebutton" class="btn btn-primary"
+                            <div>
+                            <button id="singlebutton" class="btn btn-primary">Delete this group</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </fieldset>
+            </form>
+
+            <form method="post" action="/add_member" class="form-horizontal" style="margin-left: 10px; margin-top: 20px">
+                <input type="hidden" name="_token" value=<?php echo csrf_token(); ?>>
+                <fieldset>
+
+                <input name="group_name" value=<?php echo '"'.$currentGroup.'"'; ?> type="text" readonly hidden>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="leader_name">LEADER</label>
+                    <div class="row">
+                        <div class="col-md-4" style="margin-left: 15px">
+                            <select id="leader_name" name="leader_name" class="form-control" 
                             <?php
                             if (!Auth::check()) {
-                                echo ' hidden';                
+                                echo 'disabled';                
                             }
                             else if (Auth::user()->isAdmin != 1) {
-                                echo ' hidden';
-                            }?>>Change leader</button></div>
+                                echo 'disabled';
+                            }?>>
+                                <?php
+                                //Only show who is already in the group.
+                                $users = DB::table('ug')->where('group_name', $currentGroup)->get();
+                                foreach ($users as $user) {
+                                    $isSelected = ' ';
+                                    if ($user->user_name == $currentLeader) {
+                                        $isSelected .= 'selected';
+                                    }
+                                    echo '<option value="' . $user->user_name . '"' . $isSelected . '>' . $user->user_name . '</option>';
+                                }
+                                ?>
+                            </select>
                         </div>
+                        <div><button id="singlebutton" class="btn btn-primary"
                         <?php
-                        if (Session::has('status')) {
-                            $status = Session::get('status');
-                            switch ($status) {
-                                case 'duplicated leader':
-                                    echo '<p style="margin-left: 90px; color: red;">This member is already leader of group</p>';
-                                    break;
-                                case 'missing leader':
-                                    echo '<p style="margin-left: 90px; color: red;">This member is no longer in group</p>';
-                                    break;
-                                case 'MENTOR!':
-                                    echo '<p style="margin-left: 90px; color: red;">Please contact my mentor to fix this~</p>';
-                                    break;
-                            }
+                        if (!Auth::check()) {
+                            echo ' hidden';                
                         }
-                        ?>
+                        else if (Auth::user()->isAdmin != 1) {
+                            echo ' hidden';
+                        }?>>Change leader</button></div>
                     </div>
+                    <?php
+                    if (Session::has('status')) {
+                        $status = Session::get('status');
+                        switch ($status) {
+                            case 'duplicated leader':
+                                echo '<p style="margin-left: 90px; color: red;">This member is already leader of group</p>';
+                                break;
+                            case 'missing leader':
+                                echo '<p style="margin-left: 90px; color: red;">This member is no longer in group</p>';
+                                break;
+                            case 'MENTOR!':
+                                echo '<p style="margin-left: 90px; color: red;">Please contact my mentor to fix this~</p>';
+                                break;
+                        }
+                    }
+                    ?>
+                </div>
+
                 </fieldset>
             </form>
 

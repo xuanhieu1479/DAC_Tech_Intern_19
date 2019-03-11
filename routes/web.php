@@ -27,6 +27,8 @@ Route::post('/add_product', 'addProductController@addProduct');
 
 Route::post('/create_group', 'createGroupController@createGroup');
 
+Route::post('/delete_group', 'deleteGroupController@deleteGroup');
+
 //To change the tab to group when required to create first group.
 Route::get('/create_group', function() {
     return view('profile', [Session::put('from', 'group')]);
