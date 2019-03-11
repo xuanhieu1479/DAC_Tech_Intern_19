@@ -46,9 +46,14 @@ if ($currentLeader) $currentLeader = $currentLeader->leader_name;
                             <div class="col-md-4" style="margin-left: 15px">
                                 <input id="group_name" name="group_name" value=<?php echo "'".$currentGroup."'"; ?> class="form-control input-md" type="text" readonly>
                             </div>
-                            <div>
-                            <button id="singlebutton" class="btn btn-primary">Delete this group</button>
-                            </div>
+                            <div><button id="singlebutton" class="btn btn-primary"
+                            <?php
+                            if (!Auth::check()) {
+                                echo ' hidden';                
+                            }
+                            else if (Auth::user()->isAdmin != 1) {
+                                echo ' hidden';
+                            }?>>Delete this group</button></div>
                         </div>
                     </div>
                     
