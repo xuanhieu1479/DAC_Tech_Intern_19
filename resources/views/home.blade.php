@@ -112,7 +112,7 @@ else echo '<button type="button" class="btn btn-primary" style="margin-bottom: 1
 </table>
 
 <?php
-if ($products->isEmpty()) {
+if ($products->isEmpty() && isset($filter_category)) {
   echo '<div class="alert alert-danger" role="alert" style="text-align: center; width: 40%; margin-left: auto; margin-right: auto; margin-top: 50px">';
   if (DB::table('category')->where('category_name', $filter_category)->get()->isEmpty())
     echo 'Category <strong>' . $filter_category . '</strong> does not exist.';
