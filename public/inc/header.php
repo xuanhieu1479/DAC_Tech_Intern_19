@@ -19,7 +19,8 @@
         echo '<a style="float: right; margin: -10px" href="/logout">LOGOUT</a>';
         echo '<a style="float: left; margin: -10px" href="/profile">Welcome back '. Auth::user()->user_name . '</a>';
     } else {
-        echo '<a style="float: right; margin: -10px" href="/login">LOGIN</a>';
+        echo '<a style="float: right; margin: -10px" href="/register">REGISTER</a>';
+        echo '<a style="float: right; margin: -10px; margin-right: 40px" href="/login">LOGIN</a>';        
     }
     ?>    
 </div>
