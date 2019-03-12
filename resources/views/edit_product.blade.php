@@ -2,6 +2,8 @@
 
 include "./inc/header.php";
 include "./inc/footer.php";
+include_once "./inc/function_helper.php";
+include_once "./inc/global_var.php";
 
 use Illuminate\Support\Facades\Input;
 
@@ -37,20 +39,10 @@ else if (
 ?>
 
 <form method="post" action="/product/edit" class="form-horizontal" style="margin-left: 120px; margin-top: 50px">
-    <input type="hidden" name="_token" value=<?php echo csrf_token() ?>>
+    <?php echo get_csrf_token(); ?>
     <fieldset>
 
-        <?php
-        if (Session::has('status')) {
-            switch (Session::get('status')) {
-                case 'failure':
-                    echo '<div class="alert alert-danger" role="alert" style="text-align: center; width: 40%; margin-left: auto; margin-right: auto;">';
-                    echo 'Something was wrong. I have no idea.';
-                    echo '</div>';
-                    break;
-            }
-        }
-        ?>
+        <?php echo get_error_message() ?>
 
         <!-- Form Name -->
         <legend style="margin-bottom: 35px; margin-left: -45px">EDIT PRODUCT</legend>
@@ -70,7 +62,7 @@ else if (
             <div class="col-md-4">
                 <select id="category_id" name="category_id" class="form-control">
                     <?php
-                    $categories = DB::table('category')->get();
+                    $categories = Config::get('categories');
                     foreach ($categories as $category) {
                         $isSelected = ' ';
                         if ($category->category_id == $category_id) $isSelected .= 'selected';
@@ -92,4 +84,4 @@ else if (
             </div>
         </div>
     </fieldset>
-</form> 
+</form>

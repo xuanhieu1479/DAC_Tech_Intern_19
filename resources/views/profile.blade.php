@@ -2,6 +2,8 @@
 
 include "./inc/header.php";
 include "./inc/footer.php";
+include_once "./inc/function_helper.php";
+include_once "./inc/global_var.php";
 
 if (!Auth::check()) header('Location: /login');
 
@@ -33,7 +35,7 @@ if (!Auth::check()) header('Location: /login');
 
         <div class="content-tab-divided">
             <form method="post" action="/add_product" class="form-horizontal" style="margin-left: 100px">
-                <input type="hidden" name="_token" value=<?php echo csrf_token() ?>>
+                <?php echo get_csrf_token(); ?>
                 <fieldset>
 
                     <?php
@@ -70,7 +72,7 @@ if (!Auth::check()) header('Location: /login');
                         <div class="col-md-4">
                             <select id="category_id" name="category_id" class="form-control">
                                 <?php
-                                $categories = DB::table('category')->get();
+                                $categories = Config::get('categories');
                                 foreach ($categories as $category) {
                                     echo '<option value="' . $category->category_id . '">' . $category->category_name . '</option>';
                                 }
@@ -94,13 +96,7 @@ if (!Auth::check()) header('Location: /login');
         </div>
     </div>
 
-    <div class="tab-divided" <?php 
-            if (!Auth::check()) {
-                echo 'hidden';                
-            }
-            else if (Auth::user()->isAdmin != 1) {
-                echo 'hidden';
-            } ?>>
+    <div class="tab-divided" <?php echo hidden_if_unauthorized() ?>>
         <input type="radio" id="tab-2" name="tab-group-1"
         <?php
             if (Session::has('from')) {
@@ -119,7 +115,7 @@ if (!Auth::check()) header('Location: /login');
 
         <div class="content-tab-divided">
             <form method="post" action="/create_group" class="form-horizontal" style="margin-left: 100px">
-                <input type="hidden" name="_token" value=<?php echo csrf_token() ?>>
+                <?php echo get_csrf_token(); ?>
                 <fieldset>
 
                     <?php

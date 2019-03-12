@@ -1,3 +1,7 @@
+<?php
+include_once "./inc/function_helper.php";
+?>
+
 <link rel="stylesheet" href="/css/bootstrap.css">
 <link rel="stylesheet" href="/css/header.css">
 
@@ -5,13 +9,9 @@
     <a href="/">HOME</a>
     <a href=
     <?php
-        $firstGroup = DB::table('groups')->first();
-        if ($firstGroup) {
-            echo '"/group?name=' . $firstGroup->group_name . '"';
-        }
-        else {
-            echo '"/group"';
-        }
+        $group = return_first_group();
+        if ($group) echo '"/group?name='.$group->group_name.'"';
+        else echo '"/group"';
     ?>
     >GROUPS</a>
     <?php

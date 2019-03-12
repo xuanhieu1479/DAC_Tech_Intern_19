@@ -22,7 +22,10 @@ class editProductController extends Controller
                 'category_id' => $category_id,
             ]);
         } catch (\Exception $e) {
-            return redirect()->back()->with('status', 'failure');
+            $error_message = '<div class="alert alert-danger" role="alert" style="text-align: center; width: 40%; margin-left: auto; margin-right: auto;">';
+            $error_message .= 'Something was wrong. I have no idea.';
+            $error_message .= '</div>';
+            return redirect()->back()->with('status', $error_message);
         }
         
         return redirect('/');

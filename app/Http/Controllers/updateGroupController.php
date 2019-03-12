@@ -12,11 +12,11 @@ class updateGroupController extends Controller
         $leader_name = $request->input('leader_name');
 
         if (!DB::table('groups')->where('group_name', $group_name)->where('leader_name', $leader_name)->get()->isEmpty()) {
-            return redirect('/group?name=' . $group_name)->with('status', 'duplicated leader');
+            return redirect('/group?name=' . $group_name)->with('updateLeader', 'This member is already leader of group');
         }
 
         if (DB::table('ug')->where('group_name', $group_name)->where('user_name', $leader_name)->get()->isEmpty()) {
-            return redirect('/group?name=' . $group_name)->with('status', 'missing leader');
+            return redirect('/group?name=' . $group_name)->with('updateLeader', 'This member is no longer in group');
         }
 
         try {
@@ -25,7 +25,7 @@ class updateGroupController extends Controller
             DB::table('ug')->where('group_name', $group_name)->update(['isLeader' => 0]);
             DB::table('ug')->where('group_name', $group_name)->where('user_name', $leader_name)->update(['isLeader' => 1]);
         } catch (\Exception $e) {
-            return redirect('/group?name=' . $group_name)->with('status', 'MENTOR!');
+            return redirect('/group?name=' . $group_name)->with('updateLeader', 'Please contact my mentor to fix this~');
         }
 
         return redirect('/group?name=' . $group_name);
@@ -36,11 +36,11 @@ class updateGroupController extends Controller
         $add_member_name = $request->input('add_member_name');
 
         if (!isset($add_member_name)) {
-            return redirect('/group?name=' . $group_name)->with('status', 'add empty member');
+            return redirect('/group?name=' . $group_name)->with('addMember', 'There is no one to add');
         }
 
         if (!DB::table('ug')->where('group_name', $group_name)->where('user_name', $add_member_name)->get()->isEmpty()) {
-            return redirect('/group?name=' . $group_name)->with('status', 'duplicated member');
+            return redirect('/group?name=' . $group_name)->with('addMember', 'This guy/gal is already member of group');
         }
 
         try {
@@ -50,7 +50,7 @@ class updateGroupController extends Controller
                 'isLeader' => 0,
             ]);
         } catch (\Exception $e) {
-            return redirect('/group?name=' . $group_name)->with('status', 'MENTOR!');
+            return redirect('/group?name=' . $group_name)->with('addMember', 'Please contact my mentor to fix this~');
         }
 
         return redirect('/group?name=' . $group_name);
@@ -61,13 +61,13 @@ class updateGroupController extends Controller
         $del_member_name = $request->input('del_member_name');
 
         if (!isset($del_member_name)) {
-            return redirect('/group?name=' . $group_name)->with('status', 'remove empty member');
+            return redirect('/group?name=' . $group_name)->with('removeMember', 'You just did a pointless action. Bravo!');
         }
 
         try {
             DB::table('ug')->where('user_name', $del_member_name)->where('group_name', $group_name)->delete();
         } catch (\Exception $e) {
-            return redirect('/group?name=' . $group_name)->with('status', 'MENTOR!');
+            return redirect('/group?name=' . $group_name)->with('removeMember', 'Please contact my mentor to fix this~');
         }
 
         return redirect('/group?name=' . $group_name);

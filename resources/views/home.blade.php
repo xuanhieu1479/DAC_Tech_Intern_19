@@ -2,9 +2,10 @@
 
 include "./inc/header.php";
 include "./inc/footer.php";
+include_once "./inc/global_var.php";
 
 use Illuminate\Support\Facades\Input;
-$categories = DB::table('category')->select('category_name')->distinct()->get();
+$category_names = Config::get('category_names');
 $maxItemsPerLine = 5;
 
 $filter_category = Input::get('category');
@@ -35,11 +36,11 @@ else echo '<button type="button" class="btn btn-primary" style="margin-bottom: 1
   <tbody>
     <?php
       $i = 0;
-      foreach ($categories as $category) {
+      foreach ($category_names as $category_name) {
         if ($i / $maxItemsPerLine == 0) echo '<tr>';
         echo '<th scope="col" style="width: 20%"><button type="button" class="btn btn-light">
-          <a href="?category=' . $category->category_name . '"style="text-decoration : none; color: black">'
-          . $category->category_name . '</a></button></th>';
+          <a href="?category=' . $category_name . '"style="text-decoration : none; color: black">'
+          . $category_name . '</a></button></th>';
         $i++;
         if (($i - $maxItemsPerLine) / $maxItemsPerLine == 0) echo '</tr>';        
       }

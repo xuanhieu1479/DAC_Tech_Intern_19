@@ -1,3 +1,7 @@
+<?php
+include_once "./inc/function_helper.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,14 +40,10 @@
 					</span>
 
 					<p style="color: red; margin: auto; margin-bottom: 20px; margin-top: -45px;">
-						<?php
-						if (Session::has('status')) {
-							echo Session::get('status');
-						}
-						?>
+						<?php echo get_error_message() ?>
 					</p>
 
-					<input type="hidden" name="_token" value=<?php echo csrf_token() ?>>
+					<?php echo get_csrf_token(); ?>
 					
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
 						<input class="input100" type="text" name="user_name" placeholder="Username">
