@@ -1,5 +1,4 @@
 <?php
-
 include "./inc/header.php";
 include "./inc/footer.php";
 include_once "./inc/function_helper.php";
@@ -19,9 +18,8 @@ if (DB::table('product')
     ->where('product_name', $product_name)
     ->where('category_id', $category_id)
     ->where('owner_name', $owner_name)
-    ->get()->isEmpty()) {
-        header('Location: /');
-    }
+    ->get()->isEmpty()
+) header('Location: /');
 
 if (!Auth::check()) header('Location: /login');
 else if (
@@ -32,23 +30,16 @@ else if (
         'group_name',
         DB::table('ug')->where('user_name', $owner_name)->pluck('group_name')
     )->get()->isEmpty())
-) {
-    header('Location: /');
-}
-
+) header('Location: /');
 ?>
 
 <form method="post" action="/product/edit" class="form-horizontal" style="margin-left: 120px; margin-top: 50px">
     <?php echo get_csrf_token(); ?>
     <fieldset>
-
         <?php echo get_error_message() ?>
-
-        <!-- Form Name -->
         <legend style="margin-bottom: 35px; margin-left: -45px">EDIT PRODUCT</legend>
         <input type="hidden" name="product_id" value=<?php echo "'".$product_id."'" ?>>
 
-        <!-- Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="product_name">PRODUCT NAME</label>
             <div class="col-md-4">
@@ -56,7 +47,6 @@ else if (
             </div>
         </div>
 
-        <!-- Select Basic -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="category_id">PRODUCT CATEGORY</label>
             <div class="col-md-4">
@@ -67,15 +57,12 @@ else if (
                         $isSelected = ' ';
                         if ($category->category_id == $category_id) $isSelected .= 'selected';
                         echo '<option value="' . $category->category_id . '"' . $isSelected . '>' . $category->category_name . '</option>';
-                    }
-                    ?>
+                    }?>
                 </select>
             </div>
         </div>
 
-        <!-- Text input-->
         <div class="form-group" style="margin-top: 30px">
-            <!-- Button -->
             <div class="form-group">
                 <label class="col-md-4 control-label" for="singlebutton"></label>
                 <div class="col-md-4">

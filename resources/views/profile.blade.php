@@ -1,43 +1,35 @@
 <?php
-
 include "./inc/header.php";
 include "./inc/footer.php";
 include_once "./inc/function_helper.php";
 include_once "./inc/global_var.php";
 
 if (!Auth::check()) header('Location: /login');
-
 ?>
 
 <link rel="stylesheet" href="/css/tab.css">
-
 <div class="tabs-divided">
-
     <div class="tab-divided">
         <input type="radio" id="tab-1" name="tab-group-1"
             <?php
-                if (!Session::has('from')) {
-                    echo ' checked';                     
+            if (!Session::has('from')) echo ' checked';
+            else {
+                switch (Session::get('from')) {
+                    case 'product':
+                        echo ' checked';
+                        break;
+                    case 'group':
+                        echo '';
+                        break;
                 }
-                else {
-                    switch (Session::get('from')) {
-                        case 'product':
-                            echo ' checked';
-                            break;
-                        case 'group':
-                            echo '';
-                            break;
-                    }
-                }
-            ?>
+            }?>
         >
-        <label for="tab-1" class="tab-divided-label">Add Product</label>
 
+        <label for="tab-1" class="tab-divided-label">Add Product</label>
         <div class="content-tab-divided">
             <form method="post" action="/add_product" class="form-horizontal" style="margin-left: 100px">
                 <?php echo get_csrf_token(); ?>
                 <fieldset>
-
                     <?php
                     if (Session::has('status')) {
                         switch (Session::get('status')) {
@@ -52,13 +44,10 @@ if (!Auth::check()) header('Location: /login');
                                 echo '</div>';
                                 break;
                         }
-                    }
-                    ?>
+                    }?>
 
-                    <!-- Form Name -->
                     <legend style="margin-bottom: 35px; margin-left: -45px">NEW PRODUCT</legend>
 
-                    <!-- Text input-->
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="product_name">PRODUCT NAME</label>
                         <div class="col-md-4">
@@ -66,7 +55,6 @@ if (!Auth::check()) header('Location: /login');
                         </div>
                     </div>
 
-                    <!-- Select Basic -->
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="category_id">PRODUCT CATEGORY</label>
                         <div class="col-md-4">
@@ -75,15 +63,12 @@ if (!Auth::check()) header('Location: /login');
                                 $categories = Config::get('categories');
                                 foreach ($categories as $category) {
                                     echo '<option value="' . $category->category_id . '">' . $category->category_name . '</option>';
-                                }
-                                ?>
+                                }?>
                             </select>
                         </div>
                     </div>
 
-                    <!-- Text input-->
                     <div class="form-group" style="margin-top: 30px">
-                        <!-- Button -->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="singlebutton"></label>
                             <div class="col-md-4">
@@ -98,7 +83,7 @@ if (!Auth::check()) header('Location: /login');
 
     <div class="tab-divided" <?php echo hidden_if_unauthorized() ?>>
         <input type="radio" id="tab-2" name="tab-group-1"
-        <?php
+            <?php
             if (Session::has('from')) {
                 switch (Session::get('from')) {
                     case 'product':
@@ -107,17 +92,15 @@ if (!Auth::check()) header('Location: /login');
                     case 'group':
                         echo ' checked';
                         break;
-                }                   
-            }
-        ?>
+                }
+            }?>
         >
-        <label for="tab-2" class="tab-divided-label">Create Group</label>
 
+        <label for="tab-2" class="tab-divided-label">Create Group</label>
         <div class="content-tab-divided">
             <form method="post" action="/create_group" class="form-horizontal" style="margin-left: 100px">
                 <?php echo get_csrf_token(); ?>
                 <fieldset>
-
                     <?php
                     if (Session::has('status')) {
                         switch (Session::get('status')) {
@@ -132,13 +115,10 @@ if (!Auth::check()) header('Location: /login');
                                 echo '</div>';
                                 break;
                         }
-                    }
-                    ?>
+                    }?>
 
-                    <!-- Form Name -->
                     <legend style="margin-bottom: 35px; margin-left: -45px">NEW GROUP</legend>
 
-                    <!-- Text input-->
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="group_name">GROUP NAME</label>
                         <div class="col-md-4">
@@ -146,7 +126,6 @@ if (!Auth::check()) header('Location: /login');
                         </div>
                     </div>
 
-                    <!-- Select Basic -->
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="leader_name">CHOOSE A LEADER</label>
                         <div class="col-md-4">
@@ -155,15 +134,12 @@ if (!Auth::check()) header('Location: /login');
                                 $users = DB::table('users')->get();
                                 foreach ($users as $user) {
                                     echo '<option value="' . $user->user_name . '">' . $user->user_name . '</option>';
-                                }
-                                ?>
+                                }?>
                             </select>
                         </div>
                     </div>                    
 
-                    <!-- Text input-->
                     <div class="form-group" style="margin-top: 30px">
-                        <!-- Button -->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="singlebutton"></label>
                             <div class="col-md-4">
@@ -175,5 +151,4 @@ if (!Auth::check()) header('Location: /login');
             </form>
         </div>
     </div>
-
 </div> 
