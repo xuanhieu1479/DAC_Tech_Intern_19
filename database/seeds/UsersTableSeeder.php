@@ -14,19 +14,19 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             'user_name' => 'Hieu',
-            'password' => Hash::make('123'),
+            'password' => Hash::make('qweasd'),
             'isAdmin' => 1,
         ]);
 
         DB::table('users')->insert([
             'user_name' => 'Khanh',
-            'password' => Hash::make('456'),
+            'password' => Hash::make('qweasd'),
             'isAdmin' => 0,
         ]);
 
         DB::table('users')->insert([
             'user_name' => 'Tri',
-            'password' => Hash::make('789'),
+            'password' => Hash::make('qweasd'),
             'isAdmin' => 0,
         ]);
     }

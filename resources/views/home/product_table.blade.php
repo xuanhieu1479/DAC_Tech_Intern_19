@@ -1,7 +1,7 @@
 <table class="table">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">ID</th>
+      <!-- <th scope="col">ID</th> -->
       <th scope="col">Product Name</th>
       <th scope="col">Category</th>      
       <th scope="col">Owner</th>
@@ -35,8 +35,8 @@
           }
         }
         echo '<tr>';
-        echo '<th scope="col" style="width: 5%;">' . $product->product_id . '</th>';
-        echo '<th scope="col" style="width: 25%">' . $product->product_name . '</th>';
+        // echo '<th scope="col" style="width: 5%;">' . $product->product_id . '</th>';
+        echo '<th scope="col" style="width: 30%">' . $product->product_name . '</th>';
         echo '<th scope="col" style="width: 25%">' . $product->category_name . '</th>';
         echo '<th scope="col" style="width: 25%">' . $product->owner_name . '</th>';
         echo '<th scope="col" style="width: 10%">'
