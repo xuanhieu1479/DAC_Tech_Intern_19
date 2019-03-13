@@ -11,9 +11,8 @@
 |
 */
 
-// Route::view('/', 'home');
 
-Route::view('/', 'home');
+Route::view('/', 'home.home');
 
 Route::get('/login', 'loginController@showLogin');
 
@@ -21,7 +20,7 @@ Route::post('/login', 'loginController@doLogin');
 
 Route::get('/logout', 'logoutController@doLogout');
 
-Route::view('/profile', 'profile');
+Route::view('/profile', 'profile.profile');
 
 Route::post('/add_product', 'addProductController@addProduct');
 
@@ -34,7 +33,7 @@ Route::get('/create_group', function() {
     return view('profile', [Session::put('from', 'group')]);
 });
 
-Route::view('/group', 'group');
+Route::view('/group', 'group.group');
 
 Route::get('/group?name={group_name}', function() {
     return view('group');
