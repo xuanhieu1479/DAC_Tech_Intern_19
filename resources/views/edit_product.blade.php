@@ -12,6 +12,7 @@ $category_id = Input::get('category_id');
 $owner_name = Input::get('owner_name');
 if (!isset($product_id) || !isset($product_name) || !isset($category_id) || !isset($owner_name)) {
     header('Location: /');
+    exit();
 }
 if (DB::table('product')
     ->where('product_id', $product_id)
@@ -19,10 +20,19 @@ if (DB::table('product')
     ->where('category_id', $category_id)
     ->where('owner_name', $owner_name)
     ->get()->isEmpty()
-) header('Location: /');
+) {
+    header('Location: /');
+    exit();
+}
 
-if (!Auth::check()) header('Location: /login');
-else if (!isAdminOrOwnerOrLeaderOfOwnerOfProduct($owner_name)) header('Location: /');;
+if (!Auth::check()) {
+    header('Location: /');
+    exit();
+}
+else if (!isAdminOrOwnerOrLeaderOfOwnerOfProduct($owner_name)) {
+    header('Location: /');
+    exit();
+}
 ?>
 
 <form method="post" action="/product/edit" class="form-horizontal" style="margin-left: 120px; margin-top: 50px">

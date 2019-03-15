@@ -13,7 +13,10 @@ if (DB::table('groups')->get()->isEmpty()) {
 }
 
 $currentGroup = return_first_group(Input::get('name'));
-if (!$currentGroup) header('Location: /group?name=' . return_first_group()->group_name);
+if (!$currentGroup) {
+    header('Location: /group?name=' . return_first_group()->group_name);
+    exit();
+}
 else $currentGroup = $currentGroup->group_name;
 $currentLeader = DB::table('groups')->where('group_name', $currentGroup)->get()->first();
 if ($currentLeader) $currentLeader = $currentLeader->leader_name;
