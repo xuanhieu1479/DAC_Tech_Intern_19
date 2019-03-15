@@ -10,6 +10,8 @@ class addProductController extends Controller
 {
     public function addProduct(Request $request)
     {
+        if (!Auth::check()) redirect('/login');
+
         try {
             $product_name = $request->input('product_name');
             $category_id = $request->input('category_id');

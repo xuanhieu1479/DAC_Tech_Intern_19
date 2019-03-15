@@ -42,13 +42,21 @@ return [
         ],
 
         'mysql' => [
+            //--------For development--------//
             'driver' => 'mysql',
-            'host' => env('DB_HOST', 'db4free.net'),
+            'host' => env('DB_HOST', 'mysql'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'mysql_heroku'),
-            'username' => env('DB_USERNAME', 'hieudactech'),
-            'password' => env('DB_PASSWORD', 'secret123'),
-            'unix_socket' => env('DB_SOCKET', ''),
+            'database' => env('DB_DATABASE', 'homestead'),
+            'username' => env('DB_USERNAME', 'homestead'),
+            'password' => env('DB_PASSWORD', 'secret'),
+
+            //--------For deploying--------//
+            // 'host' => env('DB_HOST', 'db4free.net'),
+            // 'port' => env('DB_PORT', '3306'),
+            // 'database' => env('DB_DATABASE', 'mysql_heroku'),
+            // 'username' => env('DB_USERNAME', 'hieudactech'),
+            // 'password' => env('DB_PASSWORD', 'secret123'),
+            // 'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',

@@ -1,7 +1,7 @@
 <table class="table">
   <thead class="thead-dark">
     <tr>
-      <!-- <th scope="col">ID</th> -->
+      <th scope="col">ID</th>
       <th scope="col">Product Name</th>
       <th scope="col">Category</th>      
       <th scope="col">Owner</th>
@@ -19,23 +19,13 @@
           $isDisabled .= ' disabled';
           $editButtonType = 'secondary';
           $deleteButtonType = 'secondary';
-        } else {
-          $currentUser = Auth::user();
-          if (
-            $currentUser->user_name != $product->owner_name
-            && $currentUser->isAdmin != 1
-            //Disable edit and delete function if logged user is not the leader of the group of the owner of the product.
-            //Yeah I know there are many "of" since I'm shit at literature.
-            && (DB::table('ug')->where('user_name', $currentUser->user_name)->where('isLeader', 1)->whereIn('group_name',
-              DB::table('ug')->where('user_name', $product->owner_name)->pluck('group_name')
-            )->get()->isEmpty())) {
+        } else if (!isAdminOrOwnerOrLeaderOfOwnerOfProduct($product->owner_name)) {
             $isDisabled .= ' disabled';
             $editButtonType = 'secondary';
             $deleteButtonType = 'secondary';
-          }
         }
         echo '<tr>';
-        // echo '<th scope="col" style="width: 5%;">' . $product->product_id . '</th>';
+        echo '<th scope="col" style="width: 5%;">' . $product->product_id . '</th>';
         echo '<th scope="col" style="width: 30%">' . $product->product_name . '</th>';
         echo '<th scope="col" style="width: 25%">' . $product->category_name . '</th>';
         echo '<th scope="col" style="width: 25%">' . $product->owner_name . '</th>';

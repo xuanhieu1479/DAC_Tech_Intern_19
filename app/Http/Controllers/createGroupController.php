@@ -1,15 +1,17 @@
 <?php
-
 namespace App\Http\Controllers;
+
+include_once "./inc/function_helper.php";
 
 use Illuminate\Http\Request;
 use DB;
-use Auth;
 
 class createGroupController extends Controller
 {
     public function createGroup(Request $request)
     {
+        if (!isLoggedInAndIsAdmin()) redirect('/login');
+
         try {
             $group_name = $request->input('group_name');
             $leader_name = $request->input('leader_name');

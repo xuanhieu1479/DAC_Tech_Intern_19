@@ -22,15 +22,7 @@ if (DB::table('product')
 ) header('Location: /');
 
 if (!Auth::check()) header('Location: /login');
-else if (
-    Auth::user()->user_name != $owner_name
-    && Auth::user()->isAdmin != 1
-    //Copy straigth from home page.
-    && (DB::table('ug')->where('user_name', Auth::user()->user_name)->where('isLeader', 1)->whereIn(
-        'group_name',
-        DB::table('ug')->where('user_name', $owner_name)->pluck('group_name')
-    )->get()->isEmpty())
-) header('Location: /');
+else if (!isAdminOrOwnerOrLeaderOfOwnerOfProduct($owner_name)) header('Location: /');;
 ?>
 
 <form method="post" action="/product/edit" class="form-horizontal" style="margin-left: 120px; margin-top: 50px">
