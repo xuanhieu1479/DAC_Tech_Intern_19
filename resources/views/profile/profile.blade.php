@@ -5,6 +5,7 @@ include_once "./inc/function_helper.php";
 include_once "./inc/global_var.php";
 
 header('Location: /login');
+exit();
 
 if (!Auth::check()) header('Location: /login');
 ?>
